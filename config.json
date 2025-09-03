@@ -6,13 +6,5 @@
     "tbb-help-center(텀블벅 헬프센터-RAG)": {
       "url": "http://host.docker.internal:8006/sse",
       "transport": "sse"
-    },
-    "mcp-atlassian": {
-      "url": "http://host.docker.internal:8007/sse",
-      "transport": "sse"
-    },
-    "tbb-database-schema(텀블벅 데이터베이스 스키마)": {
-      "url": "http://host.docker.internal:8008/sse",
-      "transport": "sse"
     }
 }
