@@ -176,6 +176,6 @@ cython_debug/
 .idea
 
 resources/mcp_rag_kbs/db
-resources/mcp_rag_kbs/pa
+resources/mcp_rag_kbs/parsing_outputs
 
 .DS_Store
