@@ -175,7 +175,7 @@ cython_debug/
 
 .idea
 
-resources/mcp_rag_help_center/data
-resources/mcp_rag_help_center/vector_db
+resources/mcp_rag_kbs/db
+resources/mcp_rag_kbs/pa
 
 .DS_Store
