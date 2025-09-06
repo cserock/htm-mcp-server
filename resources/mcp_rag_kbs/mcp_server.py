@@ -8,11 +8,13 @@ from rag import KBSRetrievalChain
 import config
 import glob
 import pickle
+from langchain_teddynote import logging
 
 load_dotenv()
-
 DB_DIR = Path(config.DB_DIR)
 PARSING_OUTPUT_DIR = Path(config.PARSING_OUTPUT_KBS_DIR)
+
+logging.langsmith(project_name="htm-mcp-server")
 
 def load_documents_from_pkl(filepath):
     """
@@ -59,7 +61,7 @@ mcp = FastMCP(
     version="0.0.1",
     description="킹덤빌더스쿨(KBS) 검색(RAG)",
     host="0.0.0.0",  # Host address (0.0.0.0 allows connections from any IP)
-    port=8006, 
+    port=8001 
 )
 
 def format_search_results(docs: List[Document]) -> str:
@@ -88,6 +90,39 @@ def format_search_results(docs: List[Document]) -> str:
         markdown_results += f"{doc.page_content}\n\n"
         markdown_results += f"Source: {source}\n\n"
         markdown_results += "---\n\n"
+    
+    return markdown_results
+
+def format_search_results_with_image_metadata(docs: List[Document]) -> str:
+    """
+    이미지 메타데이터를 활용한 검색 결과 포맷팅
+    """
+    if not docs:
+        return "No relevant information found."
+    
+    markdown_results = "## Search Results\n\n"
+    
+    for i, doc in enumerate(docs, 1):
+        source = doc.metadata.get("source", "Unknown source")
+        page = doc.metadata.get("page", None)
+        page_info = f" (Page: {page+1})" if page is not None else ""
+        
+        markdown_results += f"### Result {i}{page_info}\n\n"
+        markdown_results += f"{doc.page_content}\n\n"
+        
+        # 이미지 정보가 있는 경우 추가
+        if "images" in doc.metadata:
+            images = doc.metadata["images"]
+            if images:
+                markdown_results += "**Related Images:**\n"
+                for img in images:
+                    markdown_results += f"- {img}\n"
+                markdown_results += "\n"
+        
+        markdown_results += f"Source: {source}\n\n"
+        markdown_results += "---\n\n"
+
+        print(markdown_results)
     
     return markdown_results
 
@@ -144,8 +179,8 @@ async def search(query: str, top_k: int = 4) -> str:
 
     try:
         results = rag_chain.search_hybrid(query, top_k)
-        print(results)
-        return format_search_results(results)
+        # print(results)
+        return format_search_results_with_image_metadata(results)
     except Exception as e:
         return f"An error occurred during search: {str(e)}"
 

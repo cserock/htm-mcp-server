@@ -9,14 +9,11 @@ from langchain_core.documents import Document
 from langchain_core.retrievers import BaseRetriever
 from langchain_openai import OpenAIEmbeddings
 from langchain_upstage import UpstageEmbeddings
-# API 키를 환경변수로 관리하기 위한 설정 파일
 from dotenv import load_dotenv
 
 # API 키 정보 로드
 load_dotenv()
-
 UPSTAGE_API_KEY = os.getenv("UPSTAGE_API_KEY")
-
 
 class RetrievalChain(ABC):
     """
