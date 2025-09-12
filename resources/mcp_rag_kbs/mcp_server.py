@@ -121,9 +121,6 @@ def format_search_results_with_image_metadata(docs: List[Document]) -> str:
         
         markdown_results += f"Source: {source}\n\n"
         markdown_results += "---\n\n"
-
-        print(markdown_results)
-    
     return markdown_results
 
 # @mcp.tool()
