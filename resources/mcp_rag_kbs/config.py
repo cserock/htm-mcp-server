@@ -4,7 +4,8 @@ from pathlib import Path
 DB_DIR = Path(__file__).parent / "db"
 DB_INDEX_NAME = "kbs_faiss_db"
 
-PARSING_OUTPUT_KBS_DIR = Path(__file__).parent / "parsing_outputs/kbs/4a414ed1-67ae-49f6-acf5-a92ad7a3c206"
+# PARSING_OUTPUT_KBS_DIR = Path(__file__).parent / "parsing_outputs/kbs/4a414ed1-67ae-49f6-acf5-a92ad7a3c206"
+PARSING_OUTPUT_KBS_DIR = Path(__file__).parent / "parsing_outputs/kbs/8bd71afa-3ed8-450e-a8ef-9f609a403daf"
 
 # Default settings
 # DEFAULT_CHUNK_SIZE = 1000
